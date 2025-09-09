@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Finance App</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #4e73df, #1cc88a);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 0.8rem;
+      background: #4e73df;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: 0.3s;
+    }
+
+    .login-container button:hover {
+      background: #224abe;
+    }
+
+    .login-container p {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .login-container a {
+      color: #1cc88a;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Finance App Login</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p>Belum punya akun? <a href="#" id="registerLink">Daftar</a></p>
+  </div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    // Firebase config dari Anda
+    const firebaseConfig = {
+      apiKey: "AIzaSyAnBjo8o3AySkCxijin2cQQaXsoNtQ2iFk",
+      authDomain: "keuangan-pribadi-a18bd.firebaseapp.com",
+      databaseURL: "https://keuangan-pribadi-a18bd-default-rtdb.firebaseio.com",
+      projectId: "keuangan-pribadi-a18bd",
+      storageBucket: "keuangan-pribadi-a18bd.firebasestorage.app",
+      messagingSenderId: "425653985601",
+      appId: "1:425653985601:web:d787877bd6b6a599b701c0",
+      measurementId: "G-74ERV0RY39"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Login
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "index.html"; // redirect ke halaman utama
+      } catch (error) {
+        alert("Login gagal: " + error.message);
+      }
+    });
+
+    // Register cepat
+    document.getElementById("registerLink").addEventListener("click", async () => {
+      const email = prompt("Masukkan Email:");
+      const password = prompt("Masukkan Password (min. 6 karakter):");
+      if (!email || !password) return;
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Registrasi berhasil! Silakan login.");
+      } catch (error) {
+        alert("Registrasi gagal: " + error.message);
+      }
+      
+    });
+  </script>
+</body>
+</html>

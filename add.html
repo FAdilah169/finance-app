@@ -1,0 +1,60 @@
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tambah Transaksi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+<div class="container narrow">
+<header class="hero small">
+<div>
+<h1><i class="ri-add-circle-line"></i> Tambah Transaksi</h1>
+<p>Isi detail transaksi di bawah ini.</p>
+</div>
+<div class="hero-actions">
+<a class="btn light" href="index.html"><i class="ri-arrow-left-line"></i> Kembali</a>
+</div>
+</header>
+
+
+<section class="card">
+<form id="transactionForm" class="form-grid">
+<div class="field">
+<label for="date">Tanggal</label>
+<input type="date" id="date" required />
+</div>
+<div class="field">
+<label for="type">Jenis</label>
+<select id="type">
+<option value="pemasukan">Pemasukan</option>
+<option value="pengeluaran">Pengeluaran</option>
+</select>
+</div>
+<div class="field span-2">
+<label for="desc">Keterangan</label>
+<input type="text" id="desc" placeholder="Contoh: Gaji / Makan siang / Transport" required />
+</div>
+<div class="field span-2">
+<label for="amount">Jumlah (Rp)</label>
+<input type="number" id="amount" step="100" min="0" placeholder="0" required />
+</div>
+<div class="actions">
+<button type="submit" class="btn primary"><i class="ri-save-3-line"></i> Simpan</button>
+<a class="btn light" href="index.html">Batal</a>
+</div>
+</form>
+</section>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>

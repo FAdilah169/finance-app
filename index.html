@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keuangan Pribadi</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- SheetJS untuk Excel -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Keuangan Pribadi</h1>
+
+    <!-- Form Tambah Transaksi -->
+    <form id="transactionForm">
+      <input type="date" id="date" required />
+      <select id="type">
+        <option value="pemasukan">Pemasukan</option>
+        <option value="pengeluaran">Pengeluaran</option>
+      </select>
+      <input type="text" id="desc" placeholder="Deskripsi" required />
+      <input type="number" id="amount" placeholder="Jumlah" required />
+      <button type="submit" id="submitBtn">Tambah Transaksi</button>
+    </form>
+
+    <!-- Daftar Transaksi -->
+    <h2>Daftar Transaksi</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Deskripsi</th>
+          <th>Pemasukan</th>
+          <th>Pengeluaran</th>
+          <th>Saldo</th>
+        </tr>
+      </thead>
+      <tbody id="transactionBody"></tbody>
+    </table>
+
+    <!-- Export / Import -->
+    <button id="exportBtn">Export Excel</button>
+    <input type="file" id="excelInput" />
+
+    <!-- Grafik -->
+    <canvas id="balanceChart"></canvas>
+  </div>
+  <!-- <label for="amount">Jumlah:</label>
+<input type="text" id="amount" name="amount" readonly required />
+
+<label for="amount">Jumlah:</label>
+<input type="text" id="amount" name="amount" readonly required /> -->
+
+
+  <!-- Script utama -->
+  <script type="module" src="script.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAnBjo8o3AySkCxijin2cQQaXsoNtQ2iFk",
+    authDomain: "keuangan-pribadi-a18bd.firebaseapp.com",
+    projectId: "keuangan-pribadi-a18bd",
+    storageBucket: "keuangan-pribadi-a18bd.firebasestorage.app",
+    messagingSenderId: "425653985601",
+    appId: "1:425653985601:web:d787877bd6b6a599b701c0",
+    measurementId: "G-74ERV0RY39"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "login.html"; // kalau belum login, lempar balik
+    }
+  });
+
+  function logout() {
+    signOut(auth).then(() => {
+      window.location.href = "login.html";
+    });
+  }
+</script>
+
+<button onclick="logout()">Logout</button>
+
+  
+</body>
+</html>
